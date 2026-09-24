@@ -4,8 +4,8 @@ class Solution {
             int d=nums[i];
             int j=0;
             while(d!=0){
-                j+=d%10;
-                d/=10;
+                j=j+(d%10);
+                d=d/10;
             }
             if(j==i){
                 return j;
