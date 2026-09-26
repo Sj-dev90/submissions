@@ -1,3 +1,7 @@
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 class Solution {
     public String evaluate(String s, List<List<String>> knowledge) {
         Map<String, String> map = new HashMap<>();
@@ -5,17 +9,17 @@ class Solution {
             List<String> a = knowledge.get(o);
             map.put(a.get(0), a.get(1));
         }
-        String v = s;
         StringBuilder result = new StringBuilder();
-        while (v.indexOf('(') != -1) {
-            int f = v.indexOf('(');
-            int n = v.indexOf(')');
-            String p = v.substring(f + 1, n);
-            result.append(v.substring(0, f));
+        int idx = 0;
+        int f;
+        while ((f = s.indexOf('(', idx)) != -1) {
+            int n = s.indexOf(')', f);
+            String p = s.substring(f + 1, n);
+            result.append(s, idx, f);
             result.append(map.getOrDefault(p, "?"));
-            v = v.substring(n + 1);
+            idx = n + 1;
         }
-        result.append(v);
+        result.append(s, idx, s.length());
         return result.toString();
     }
 }
